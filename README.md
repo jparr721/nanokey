@@ -1,2 +1,2 @@
-# platinum
-Distributed key-value store in rust
+# nanokey
+🌲A beautiful, functional key-value garden 🌸🌹 come stay awhile...
