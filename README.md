@@ -1,5 +1,5 @@
 # nanokey
-🌲A beautiful, functional, stateless key-value garden 🌸🌹 come stay awhile...
+🌲A beautiful, functional, stateless key-value garden 🌸🌹 come stay awhile...🌲
 
 ## Installation
 
