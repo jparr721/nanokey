@@ -1,9 +1,22 @@
-import { Controller, Param, Get, Query, Res, Body, Post } from '@nestjs/common';
+import {
+  Controller,
+  Param,
+  Get,
+  Query,
+  Res,
+  Body,
+  Post,
+  Delete,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 import { NanokeyService } from './nanokey.service';
-
-import { DatabaseReadError, KV } from './nanokey.interface';
+import {
+  DatabaseReadError,
+  KV,
+  DatabaseWriteError,
+  DatabaseDeleteError,
+} from './nanokey.interface';
 
 @Controller('nanokey')
 export class NanokeyController {
@@ -16,8 +29,8 @@ export class NanokeyController {
   ): Promise<Response> {
     const value = await this.service.findByKey(key);
     return !(value instanceof DatabaseReadError)
-      ? res.status(200).json({ value })
-      : res.status(404).json({ value });
+      ? res.status(200).json({ success: value })
+      : res.status(404).json({ failed: value });
   }
 
   @Get('/fuzzy/:key')
@@ -28,8 +41,8 @@ export class NanokeyController {
   ): Promise<Response> {
     const value = await this.service.findByKey(key, true, limit);
     return !(value instanceof DatabaseReadError)
-      ? res.status(200).json({ value })
-      : res.status(404).json({ value });
+      ? res.status(200).json({ success: value })
+      : res.status(404).json({ failed: value });
   }
 
   @Post()
@@ -41,8 +54,20 @@ export class NanokeyController {
     const { key, value } = kv;
     const created = await this.service.createEntry(key, value, safe);
 
-    return created
+    return !(created instanceof DatabaseWriteError)
       ? res.status(201).json({ success: 'created' })
-      : res.status(500).json({ failed: 'fialed to insert key' });
+      : res.status(500).json({ failed: created });
+  }
+
+  @Delete(':key')
+  async deleteKeyAndValue(
+    @Res() res: Response,
+    @Param('key') key: string,
+  ): Promise<Response> {
+    const deleted = await this.service.deleteEntry(key);
+
+    return !(deleted instanceof DatabaseDeleteError)
+      ? res.status(200).json({ success: 'deleted' })
+      : res.status(404).json({ failed: deleted });
   }
 }

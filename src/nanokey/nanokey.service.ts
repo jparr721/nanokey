@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import levelup from 'levelup';
 import leveldown from 'leveldown';
 
-import { DatabaseReadError } from './nanokey.interface';
+import { DatabaseReadError, DatabaseWriteError, DatabaseDeleteError } from './nanokey.interface';
 
 @Injectable()
 export class NanokeyService {
@@ -20,7 +20,7 @@ export class NanokeyService {
       try {
         return this.db.get(key).toString();
       } catch (e) {
-        return new DatabaseReadError('Failed to find key');
+        return new DatabaseReadError(`Failed: ${e}`);
       }
     }
 
@@ -40,19 +40,28 @@ export class NanokeyService {
     key: string,
     value: string,
     safe: boolean = false,
-  ): Promise<boolean> {
+  ): Promise<void | DatabaseWriteError> {
     if (safe) {
       const val = await this.db.get(key);
       if (val) {
-        return false;
+        return new DatabaseWriteError('Key already exists');
       }
     }
 
     try {
-      const out = await this.db.put(key, value);
-      return true;
-    } catch {
-      return false;
+      const _ = await this.db.put(key, value);
+      return;
+    } catch (e) {
+        return new DatabaseWriteError(`Failed: ${e}`);
+    }
+  }
+
+  async deleteEntry(key: string): Promise<void | DatabaseDeleteError> {
+    try {
+      const _ = await this.db.del(key);
+      return;
+    } catch (e) {
+      return new DatabaseDeleteError('Failed to write key and value');
     }
   }
 }

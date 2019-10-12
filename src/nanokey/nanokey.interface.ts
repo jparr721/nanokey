@@ -15,6 +15,14 @@ export class DatabaseWriteError extends Error {
   }
 }
 
+export class DatabaseDeleteError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
 export interface KV {
   key: string;
   value: string;
