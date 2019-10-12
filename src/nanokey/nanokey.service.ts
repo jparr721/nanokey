@@ -18,7 +18,8 @@ export class NanokeyService {
   ): Promise<string | string[] | DatabaseReadError> {
     if (!fuzzy) {
       try {
-        return this.db.get(key).toString();
+        const result = await this.db.get(key);
+        return result.toString();
       } catch (e) {
         return new DatabaseReadError(`Failed: ${e}`);
       }
