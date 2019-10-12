@@ -1,5 +1,6 @@
 # nanokey
 🌲A beautiful, functional, stateless key-value garden 🌸🌹 come stay awhile...🌲
+
 This API is fully stateless and uses the filesystem to do extremely fast and efficient key-value lookups in the internal database service. The design of this system is for quick-access cached values (like a token revocation list). This uses Nestjs singletons to maintain a consistent access pool to the shared resource. With performance being a consideraiton here, there is still a distribution orchestrator which can make `n` replicas of the service (incubating).
 
 ## Documentation
