@@ -2,7 +2,7 @@
 🌲A beautiful, functional, stateless key-value garden 🌸🌹 come stay awhile...🌲
 
 ## Documentation
-Start this app and go to `localhost:6900/_docs` and you'll see the while api!
+Start this app and go to `localhost:6900/_docs` and you'll see the whole api!
 
 ## Installation
 
