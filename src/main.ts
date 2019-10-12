@@ -4,7 +4,21 @@ import * as dotenv from 'dotenv';
 
 import { AppModule } from './app.module';
 
+const logo =
+  `
+ __    _  _______  __    _  _______  ___   _  _______  __   __
+|  |  | ||   _   ||  |  | ||       ||   | | ||       ||  | |  |
+|   |_| ||  |_|  ||   |_| ||   _   ||   |_| ||    ___||  |_|  |
+|       ||       ||       ||  | |  ||      _||   |___ |       |
+|  _    ||       ||  _    ||  |_|  ||     |_ |    ___||_     _|
+| | |   ||   _   || | |   ||       ||    _  ||   |___   |   |
+|_|  |__||__| |__||_|  |__||_______||___| |_||_______|  |___|
+`;
+
 async function bootstrap() {
+  /* tslint:disable:no-console */
+  console.log(logo);
+
   const app = await NestFactory.create(AppModule);
 
   const result = dotenv.config();

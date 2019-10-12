@@ -15,6 +15,7 @@ export class DatabaseWriteError extends Error {
   }
 }
 
-export interface DatabaseResponse {
-
+export interface KV {
+  key: string;
+  value: string;
 }
