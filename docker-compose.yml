@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nanokey:
+    build: .
+    restart: always
+    volumes:
+      - nanokey:/usr/src/app/${NANOKEY_DB_NAME}
+    ports:
+      - 6900:6900
+
+volumes:
+  nanokey:
+

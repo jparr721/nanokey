@@ -1,6 +1,9 @@
 # nanokey
 🌲A beautiful, functional, stateless key-value garden 🌸🌹 come stay awhile...🌲
 
+## Documentation
+Start this app and go to `localhost:6900/_docs` and you'll see the while api!
+
 ## Installation
 
 ```bash
@@ -8,7 +11,12 @@ $ yarn install
 ```
 
 ## Running the app
+### Running in docker (preferred)
+```bash
+$ docker-compose up
+```
 
+### Running locally
 ```bash
 # development
 $ yarn run start
@@ -24,12 +32,12 @@ $ yarn run start:prod
 
 ```bash
 # unit tests
-$ yarn run test
+$ yarn test
 
 # e2e tests
-$ yarn run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ yarn run test:cov
+$ yarn test:cov
 ```
 
