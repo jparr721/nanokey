@@ -2,11 +2,11 @@ FROM node:10
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
+RUN git clone https://github.com/jparr721/nanokey.git .
+
+RUN cp .env.example .env
 
 RUN yarn install --frozen-lockfile --non-interactive
-
-COPY . .
 
 RUN yarn build
 
